@@ -5,7 +5,7 @@ from io import BytesIO
 import os
 from discord_webhook import DiscordWebhook, DiscordEmbed
 app = Flask(__name__)
-
+init_db()
 API_KEY = os.getenv("API_KEY")
 ADMIN_PASSWORD = os.getenv("PASSWORD")
 ADMIN_USERNAME = os.getenv("USERNAME")

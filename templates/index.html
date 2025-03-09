@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Shop</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Modern Shop</h1>
+            <nav>
+                <a href="#" id="home-link">Home</a>
+                <a href="#" id="cart-link">Cart</a>
+                <a href="login.html" id="admin-login">Admin Login</a>
+            </nav>
+            <button id="checkout-btn">Checkout</button>
+        </header>
+
+        <!-- Email Input Section (Modal) -->
+        <div id="email-modal" class="modal">
+            <div class="modal-content">
+                <h2>Please enter your email to continue</h2>
+                <input type="text" id="email-input" placeholder="Enter your discord" required />
+                <button id="login-btn" onclick="document.getElementById('email-modal').style.display='none'">Login</button>
+            </div>
+        </div>
+
+        <main>
+            <section id="product-list" class="product-list">
+            </section>
+            <section id="cart" class="cart">
+                <h2>Your Cart</h2>
+                <ul id="cart-items"></ul>
+                <button id="checkout-btn-mobile">Checkout</button>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Blox Fruits Trading Center</p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

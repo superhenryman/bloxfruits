@@ -9,8 +9,7 @@ app = Flask(__name__)
 API_KEY = os.getenv("API_KEY")
 ADMIN_PASSWORD = os.getenv("PASSWORD")
 ADMIN_USERNAME = os.getenv("USERNAME")
-#WEBHOOK_URL = os.getenv("WEBHOOK_URL")
-WEBHOOK_URL = "https://discord.com/api/webhooks/1348353873013772388/CLYxEQD2P0s1eItY1z6c78qdmqKYGursNeuohjne_6SD5Cb4FX6hPTuYxei5tmTSy1ev"
+WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 def send_messsage_on_order(order, username):
     webhook = DiscordWebhook(WEBHOOK_URL, content=f"YAO JIN CHOONG!!!!!!!! A NEW ORDER HAS BEEN PLACED!!!, ORDER: {order}, USERNAME: {username}")
     embed = DiscordEmbed(title="Order", description="MOOLAH?!?!?!?!?!? 🤑💲💲💲🤑💲💲💰💸💸", color="FF0000")

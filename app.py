@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify, send_file, abort
+from flask import Flask, request, render_template, jsonify, send_file, abort, redirect
 from utils import *
 import pandas as pd
 from io import BytesIO
@@ -18,9 +18,11 @@ def send_message_on_order(order, username):
 def require_api_key():
     if request.headers.get('X-API-KEY') != API_KEY:
         ip_addr = request.remote_addr
-        print(f"Dumbass forgot his API Key, here's his ip: {ip_addr}")
-        abort(403)
-
+        print(ip_addr)
+        return f"This you lil bro? {ip_addr}"
+@app.route("/gotologin")
+def redirecttologin():
+    return redirect("/login")
 def retrieve_data():
     with get_conn() as conn:
        cursor = conn.cursor()
@@ -66,7 +68,7 @@ def squidward():
 
 
         """
-    return f"{squidward}, Yes, you're on the right page."
+    return f"{squidward_handsome}, Yes, you're on the right page."
 # admin stuff
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -77,12 +79,9 @@ def login():
         realhashpassword = hash(ADMIN_PASSWORD)
         try:
             if verify(username, realhashusername) and verify(password, realhashpassword):
-                # login
-                pass
+                return render_template("info.html", info=f"Your API Key is {API_KEY}, ask the dev on how to use it.")
         except Exception as e:
             return render_template("login.html", error="Incorrect Username/Password")
-
-        return render_template("info.html", info=f"Your API Key is {API_KEY}, ask the dev on how to use it.")
     return render_template("login.html")
 
 @app.route("/excel", methods=["GET"])

@@ -96,7 +96,7 @@ document.getElementById('checkout-btn').addEventListener('click', () => {
     const jsonData = JSON.stringify(cartData);
 
     // Simulating the POST request to the backend
-    fetch('https://your-api-endpoint.com/checkout', {
+    fetch('/checkout', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

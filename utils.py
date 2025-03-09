@@ -28,7 +28,7 @@ def init_db():
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS orders(
             id SERIAL PRIMARY KEY,
-            order JSONB NOT NULL  
+            "order" JSONB NOT NULL  
         )""")
         conn.commit()
 

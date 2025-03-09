@@ -79,6 +79,7 @@ def login():
         print(password)
         realhashusername = hash(ADMIN_USERNAME)
         realhashpassword = hash(ADMIN_PASSWORD)
+        print(f"Password: {hash(password)}, Username: {hash(username)}")
         try:
             if verify(username, realhashusername) and verify(password, realhashpassword):
                 return render_template("info.html", info=f"Your API Key is {API_KEY}, ask the dev on how to use it.")

@@ -74,7 +74,9 @@ def squidward():
 def login():
     if request.method == "POST":
         username = request.form.get("username")
+        print(username)
         password = request.form.get("password")
+        print(password)
         realhashusername = hash(ADMIN_USERNAME)
         realhashpassword = hash(ADMIN_PASSWORD)
         try:

@@ -142,7 +142,7 @@ def checkout():
             insert_order(json_data)
             send_message_on_order(json_data)
         except Exception as e:
-            return render_template("info.html", info="Submitted!!!")
+            return render_template("info.html", info="Error while submitting.")
     else:
         return render_template("info.html", info="Invalid Captcha")
     

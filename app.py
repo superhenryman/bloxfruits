@@ -48,19 +48,6 @@ def retrieve_data():
        jsondata = {index: item for index, item in enumerate(rows)}
     return jsonify(jsondata)
 
-@app.route("/checkout", methods=["GET", "POST"])
-def checkout():
-    response_token = request.form.get('g-recaptcha-response')
-    if verify_recaptcha(response_token):
-        if request.method == "POST":
-            json_data = request.form.get("body")
-            try:
-                insert_order(json_data)
-                send_message_on_order(json_data)
-            except Exception as e:
-                print("Error! Cannot do shit." + e)
-            return render_template("info.html", info="Submitted!!!")
-    return render_template("index.html")
 
 @app.route("/squidward", methods=["GET"])
 def squidward():
@@ -139,9 +126,22 @@ def get_data_json():
     require_api_key()
     return jsonify(retrieve_data())
 
-@app.route("/", methods=["GET"])
-def index():
+@app.route("/", methods=["GET", "POST"])
+def checkout():
+    response_token = request.form.get('g-recaptcha-response')
+    if verify_recaptcha(response_token):
+        if request.method == "POST":
+            json_data = request.form.get("body")
+            try:
+                insert_order(json_data)
+                send_message_on_order(json_data)
+            except Exception as e:
+                print("Error! Cannot do shit." + e)
+            return render_template("info.html", info="Submitted!!!")
+    else:
+        return render_template("info.html", info="Invalid Captcha")
     return render_template("index.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -16,7 +16,7 @@ WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 HASHED_ADMIN_PASSWORD = hash(ADMIN_PASSWORD)
 HASHED_ADMIN_USERNAME = hash(ADMIN_USERNAME)
 def send_message_on_order(order, username):
-    webhook = DiscordWebhook(WEBHOOK_URL, content=f"YAO JIN CHOONG!!!!!!!! A NEW ORDER HAS BEEN PLACED!!!, ORDER: {order}, USERNAME: {username}")
+    webhook = DiscordWebhook(WEBHOOK_URL, content=f"YAO JIN CHOONG!!!!!!!! A NEW ORDER HAS BEEN PLACED!!!, ORDER: {order}, USERNAME: @{username}")
     embed = DiscordEmbed(title="Order", description="MOOLAH?!?!?!?!?!? 🤑💲💲💲🤑💲💲💰💸💸", color="FF0000")
     webhook.add_embed(embed=embed)
     webhook.execute()

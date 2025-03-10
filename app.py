@@ -4,7 +4,6 @@ import pandas as pd
 from io import BytesIO
 import os
 from discord_webhook import DiscordWebhook, DiscordEmbed
-import requests
 # TODO: Add Captcha, fix checkout.
 
 app = Flask(__name__)

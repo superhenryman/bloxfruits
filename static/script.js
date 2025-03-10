@@ -106,9 +106,9 @@ const products = [
       return response.text();  // Process response as text
     })
     .then(data => {
-      alert("Get ready to be contacted soon!!, Also listen to the first word after this.");
+      alert("Contact us at our insta page or wait for us to contact you via discord.");
       // Corrected redirect syntax:
-      window.location.href = "https://youtu.be/YmTjOGzf160?t=74";
+      window.location.href = "https://www.instagram.com/bloxfruits_tradingcooperation?igsh=MTc5aDh5bnlkejNkaQ==";
       cart = [];
       updateCart();
       checkoutButton.disabled = false;

@@ -117,7 +117,9 @@ def retrieve_and_save_data_as_excel():
         cursor.execute("SELECT * FROM orders")
         rows = cursor.fetchall()
         df = pd.DataFrame(rows, columns=["id", "order"])
-        excelfile = df.to_excel()  # Ensure you are passing the correct arguments
+        excelfile = BytesIO()
+        df.to_excel(excelfile, index=False)
+        excelfile.seek(0)  # Move to the beginning of the file after writing
     return send_file(
         excelfile,
         as_attachment=True,
@@ -135,11 +137,11 @@ def checkout():
     response_token = request.form.get('g-recaptcha-response')
     if verify_recaptcha(response_token):     
         json_data = request.form.get("body")
+        print(json_data)
         try:
             insert_order(json_data)
             send_message_on_order(json_data)
         except Exception as e:
-            print("Error! Cannot do shit." + e)
             return render_template("info.html", info="Submitted!!!")
     else:
         return render_template("info.html", info="Invalid Captcha")

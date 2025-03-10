@@ -99,7 +99,7 @@ checkoutButton.addEventListener('click', () => {
 
     const jsonData = JSON.stringify(cartData);
 
-    fetch('https://web-production-d652a.up.railway.app/', {
+    fetch('https://web-production-d652a.up.railway.app/checkout', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

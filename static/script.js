@@ -83,19 +83,22 @@ document.getElementById('checkout-btn').addEventListener('click', () => {
         return;
     }
 
-    // Convert cart to JSON
+    // Show loading spinner
+    const checkoutButton = document.getElementById('checkout-btn');
+    checkoutButton.disabled = true;
+    checkoutButton.textContent = 'Processing...';
+
     const cartData = {
         discord: email,
         items: cart.map(item => ({
             name: item.name,
             price: item.price,
-            quantity: 1 // Since we're not handling quantity yet, default to 1
+            quantity: 1
         }))
     };
 
     const jsonData = JSON.stringify(cartData);
 
-    // Simulating the POST request to the backend
     fetch('https://web-production-d652a.up.railway.app/checkout', {
         method: 'POST',
         headers: {
@@ -106,12 +109,16 @@ document.getElementById('checkout-btn').addEventListener('click', () => {
     .then(response => response.json())
     .then(data => {
         alert("Checkout successful!");
-        cart = []; // Clear the cart
+        cart = [];
         updateCart();
+        checkoutButton.disabled = false;
+        checkoutButton.textContent = 'Checkout';
     })
     .catch(error => {
         alert("An error occurred during checkout.");
         console.error('Error:', error);
+        checkoutButton.disabled = false;
+        checkoutButton.textContent = 'Checkout';
     });
 });
 

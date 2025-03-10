@@ -115,7 +115,7 @@ checkoutButton.addEventListener('click', () => {
         checkoutButton.textContent = 'Checkout';
     })
     .catch(error => {
-        alert("An error occurred during checkout.");
+        alert(`An error occured: ${error}`);
         console.error('Error:', error);
         checkoutButton.disabled = false;
         checkoutButton.textContent = 'Checkout';

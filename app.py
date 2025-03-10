@@ -4,7 +4,7 @@ import pandas as pd
 from io import BytesIO
 import os
 from discord_webhook import DiscordWebhook, DiscordEmbed
-
+import requests
 # TODO: Add Captcha, fix checkout.
 
 app = Flask(__name__)
@@ -13,7 +13,17 @@ API_KEY = os.getenv("API_KEY")
 ADMIN_PASSWORD = os.getenv("PASSWORD")
 ADMIN_USERNAME = os.getenv("USERNAME")
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
+def verify_recaptcha(response_token):
+    url = 'https://www.google.com/recaptcha/api/siteverify'
+    data = {
+        'secret': SECRET_KEY,
+        'response': response_token
+    }
+    response = requests.post(url, data=data)
+    result = response.json()
+    return result.get('success')
 def send_message_on_order(order, username):
     webhook = DiscordWebhook(WEBHOOK_URL, content=f"YAO JIN CHOONG!!!!!!!! A NEW ORDER HAS BEEN PLACED!!!, ORDER: {order}, USERNAME: {username}")
     embed = DiscordEmbed(title="Order", description="MOOLAH?!?!?!?!?!? 🤑💲💲💲🤑💲💲💰💸💸", color="FF0000")
@@ -40,14 +50,16 @@ def retrieve_data():
 
 @app.route("/checkout", methods=["GET", "POST"])
 def checkout():
-    if request.method == "POST":
-        json_data = request.form.get("body")
-        try:
-            insert_order(json_data)
-            send_message_on_order(json_data)
-        except Exception as e:
-            print("Error! Cannot do shit." + e)
-        return render_template("info.html", info="Submitted!!!")
+    response_token = request.form.get('g-recaptcha-response')
+    if verify_recaptcha(response_token):
+        if request.method == "POST":
+            json_data = request.form.get("body")
+            try:
+                insert_order(json_data)
+                send_message_on_order(json_data)
+            except Exception as e:
+                print("Error! Cannot do shit." + e)
+            return render_template("info.html", info="Submitted!!!")
     return render_template("index.html")
 
 @app.route("/squidward", methods=["GET"])

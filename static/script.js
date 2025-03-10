@@ -2,7 +2,7 @@ const products = [
     { id: 1, name: "Laptop", price: 999, image: "laptop.png" },
     { id: 2, name: "Headphones", price: 199, image: "headphones.png" },
 ];
-const checkoutButton = document.getElementById('checkout-btn')
+const checkoutButton = document.getElementById('checkout-btn');
 let cart = [];
 let email = "";
 
@@ -84,7 +84,6 @@ checkoutButton.addEventListener('click', () => {
     }
 
     // Show loading spinner
-    const checkoutButton = document.getElementById('checkout-btn');
     checkoutButton.disabled = true;
     checkoutButton.textContent = 'Processing...';
 
@@ -96,9 +95,9 @@ checkoutButton.addEventListener('click', () => {
             quantity: 1
         }))
     };
-
+    console.log(cartData)
     const jsonData = JSON.stringify(cartData);
-
+    console.log(jsondata)
     fetch('https://web-production-d652a.up.railway.app/checkout', {
         method: 'POST',
         headers: {
@@ -106,7 +105,12 @@ checkoutButton.addEventListener('click', () => {
         },
         body: jsonData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();  // Parse the response as JSON
+    })
     .then(data => {
         alert("Checkout successful!");
         cart = [];
@@ -115,7 +119,7 @@ checkoutButton.addEventListener('click', () => {
         checkoutButton.textContent = 'Checkout';
     })
     .catch(error => {
-        alert(`An error occured: ${error}`);
+        alert(`An error occurred: ${error.message}`);
         console.error('Error:', error);
         checkoutButton.disabled = false;
         checkoutButton.textContent = 'Checkout';

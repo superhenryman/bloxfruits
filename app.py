@@ -128,8 +128,8 @@ def checkout():
         insert_order(json_data)
         send_message_on_order(json_data)
     except Exception as e:
-        return render_template("info.html", info="Error while submitting.")
-    return render_template("info.html", info="Submitted Succesfully.")
+        return jsonify({"messasge": "Error while submitting"}), 500
+    return jsonify({"message", "Submitted Sucessfully!"})
 
 @app.route("/", methods=["GET"])
 def index():

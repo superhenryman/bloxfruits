@@ -99,31 +99,33 @@ checkoutButton.addEventListener('click', () => {
     const jsonData = JSON.stringify(cartData);
     console.log(jsonData)
     fetch('https://web-production-d652a.up.railway.app/checkout', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: jsonData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();  // Parse the response as JSON
-    })
-    .then(data => {
-        alert("Checkout successful!");
-        cart = [];
-        updateCart();
-        checkoutButton.disabled = false;
-        checkoutButton.textContent = 'Checkout';
-    })
-    .catch(error => {
-        alert(`An error occurred: ${error.message}`);
-        console.error('Error:', error);
-        checkoutButton.disabled = false;
-        checkoutButton.textContent = 'Checkout';
-    });
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: jsonData
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.text();  // Parse as text instead of JSON
+})
+.then(data => {
+    window.location.href("https://youtu.be/YmTjOGzf160?t=74")
+    alert("Checkout successful!");
+    cart = [];
+    updateCart();
+    checkoutButton.disabled = false;
+    checkoutButton.textContent = 'Checkout';
+})
+.catch(error => {
+    alert(`An error occurred: ${error.message}`);
+    console.error('Error:', error);
+    checkoutButton.disabled = false;
+    checkoutButton.textContent = 'Checkout';
+});
+
 });
 
 // Initialize

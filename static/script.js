@@ -97,7 +97,7 @@ checkoutButton.addEventListener('click', () => {
     };
     console.log(cartData)
     const jsonData = JSON.stringify(cartData);
-    console.log(jsondata)
+    console.log(jsonData)
     fetch('https://web-production-d652a.up.railway.app/checkout', {
         method: 'POST',
         headers: {

@@ -1,48 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blox Fruits Trading Corporation</title>
-    <link rel="stylesheet" href="../static/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blox Fruits Trading Corporation</title>
+  <link rel="stylesheet" href="../static/styles.css" />
 </head>
 <body>
-    <div class="app-container">
-        <header>
-            <h1>Blox Fruits Trading Corporation</h1>
-            <nav>
-                <a href="#" id="home-link">Home</a>
-                <a href="#" id="cart-link">Cart</a>
-                <form action="/gotologin">
-                    <button type="submit">Admin Login</button>
-                </form>
-            </nav>
-        </header>
+  <div class="app-container">
+    <header>
+      <h1>Blox Fruits Trading Corporation</h1>
+      <nav>
+        <a href="#" id="home-link">Home</a>
+        <a href="#" id="cart-link">Cart</a>
+        <form action="/gotologin">
+          <button type="submit">Admin Login</button>
+        </form>
+      </nav>
+    </header>
 
-        <!-- Email Input Section (Modal) -->
-        <div id="email-modal" class="modal">
-            <div class="modal-content">
-                <h2>Please enter your discord to continue</h2>
-                <input type="text" id="email-input" placeholder="Enter your discord" required />
-                <button id="login-btn">Login</button>
-            </div>
-        </div>
-
-        <main>
-            <section id="product-list" class="product-list">
-            </section>
-            <section id="cart" class="cart">
-                <h2>Your Cart</h2>
-                <ul id="cart-items"></ul>
-                <button id="checkout-btn">Checkout</button>
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; 2025 Blox Fruits Trading Center</p>
-        </footer>
+    <!-- Email Input Section (Modal) -->
+    <div id="email-modal" class="modal">
+      <div class="modal-content">
+        <h2>Please enter your discord to continue</h2>
+        <input type="text" id="email-input" placeholder="Enter your discord" required />
+        <button id="login-btn">Login</button>
+      </div>
     </div>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="/static/script.js"></script>
+
+    <main>
+      <section id="product-list" class="product-list"></section>
+      <section id="cart" class="cart">
+        <h2>Your Cart</h2>
+        <ul id="cart-items"></ul>
+        <button id="checkout-btn">Checkout</button>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Blox Fruits Trading Center</p>
+    </footer>
+  </div>
+  <script src="/static/script.js"></script>
 </body>
 </html>

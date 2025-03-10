@@ -24,18 +24,20 @@ def get_conn():
 
 def init_db():
     with get_conn() as conn:
+        print("Initalizing Database..")
         cursor = conn.cursor()
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS orders(
             id SERIAL PRIMARY KEY,
-            "order" JSONB NOT NULL  
+            "orderthing" JSONB NOT NULL  
         )""")
         conn.commit()
-
+        print("Database Initalized.")
 def insert_order(order):
     order_json = json.dumps(order)
+    print(f"Inserting order {order_json}")
     with get_conn() as conn:
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO orders (order) VALUES (%s)", (order_json,))
+        cursor.execute("INSERT INTO orders (orderthing) VALUES (%s)", (order_json,))
         conn.commit()
-
+        print("MIN-SU, YOU, IN!")

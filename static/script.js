@@ -1,137 +1,132 @@
 const products = [
     { id: 1, name: "Laptop", price: 999, image: "laptop.png" },
     { id: 2, name: "Headphones", price: 199, image: "headphones.png" },
-];
-const checkoutButton = document.getElementById('checkout-btn');
-let cart = [];
-let email = "";
-
-// Display products
-function displayProducts() {
+  ];
+  const checkoutButton = document.getElementById('checkout-btn');
+  let cart = [];
+  let email = "";
+  
+  // Display products
+  function displayProducts() {
     const productList = document.getElementById('product-list');
-    productList.innerHTML = ''; // Clear any existing products first
+    productList.innerHTML = ''; // Clear existing products
     products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.classList.add('product-card');
-        productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>$${product.price}</p>
-            <button onclick="addToCart(${product.id})">Add to Cart</button>
-        `;
-        productList.appendChild(productCard);
+      const productCard = document.createElement('div');
+      productCard.classList.add('product-card');
+      productCard.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>$${product.price}</p>
+        <button onclick="addToCart(${product.id})">Add to Cart</button>
+      `;
+      productList.appendChild(productCard);
     });
-}
-
-// Add item to the cart
-function addToCart(productId) {
+  }
+  
+  // Add item to the cart
+  function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (!cart.includes(product)) {
-        cart.push(product);
+      cart.push(product);
     }
     updateCart();
-}
-
-// Remove item from the cart
-function removeFromCart(productId) {
+  }
+  
+  // Remove item from the cart
+  function removeFromCart(productId) {
     cart = cart.filter(p => p.id !== productId);
     updateCart();
-}
-
-// Update the cart display
-function updateCart() {
+  }
+  
+  // Update the cart display
+  function updateCart() {
     const cartItems = document.getElementById('cart-items');
     cartItems.innerHTML = "";
     cart.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `${item.name} - $${item.price} <button onclick="removeFromCart(${item.id})">Remove</button>`;
-        cartItems.appendChild(li);
+      const li = document.createElement('li');
+      li.innerHTML = `${item.name} - $${item.price} <button onclick="removeFromCart(${item.id})">Remove</button>`;
+      cartItems.appendChild(li);
     });
-}
-
-// Handle login
-document.getElementById('login-btn').addEventListener('click', () => {
+  }
+  
+  // Handle login for discord
+  document.getElementById('login-btn').addEventListener('click', () => {
     email = document.getElementById('email-input').value;
     if (!email) {
-        alert('Please enter a valid email!');
-        return;
+      alert('Please enter a valid discord!');
+      return;
     }
-    
-    // Hide the login modal after successful login
+    // Hide the login modal and show main content
     document.getElementById('email-modal').style.display = 'none';
-    
-    // Show the cart and products
     document.querySelector('main').style.display = 'block';
-});
-
-// Navigation functionality
-document.getElementById('home-link').addEventListener('click', () => {
+  });
+  
+  // Navigation functionality
+  document.getElementById('home-link').addEventListener('click', () => {
     document.getElementById('product-list').style.display = 'grid';
     document.getElementById('cart').style.display = 'none';
     displayProducts();
-});
-
-document.getElementById('cart-link').addEventListener('click', () => {
+  });
+  
+  document.getElementById('cart-link').addEventListener('click', () => {
     document.getElementById('cart').style.display = 'block';
     document.getElementById('product-list').style.display = 'none';
-});
-
-// Handle checkout
-checkoutButton.addEventListener('click', () => {
+  });
+  
+  // Handle checkout
+  checkoutButton.addEventListener('click', () => {
     if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
+      alert("Your cart is empty!");
+      return;
     }
-
-    // Show loading spinner
+    // Show loading state
     checkoutButton.disabled = true;
     checkoutButton.textContent = 'Processing...';
-
+  
     const cartData = {
-        discord: email,
-        items: cart.map(item => ({
-            name: item.name,
-            price: item.price,
-            quantity: 1
-        }))
+      discord: email,
+      items: cart.map(item => ({
+        name: item.name,
+        price: item.price,
+        quantity: 1
+      }))
     };
-    console.log(cartData)
     const jsonData = JSON.stringify(cartData);
-    console.log(jsonData)
     fetch('https://web-production-d652a.up.railway.app/checkout', {
-    method: 'POST',
-    headers: {
+      method: 'POST',
+      headers: {
         'Content-Type': 'application/json'
-    },
-    body: jsonData
-})
-.then(response => {
-    if (!response.ok) {
+      },
+      body: jsonData
+    })
+    .then(response => {
+      if (!response.ok) {
         throw new Error('Network response was not ok');
-    }
-    return response.text();  // Parse as text instead of JSON
-})
-.then(data => {
-    alert("Get ready to be contacted soon!!, Also listen to the first word after this.")
-    window.location.href("https://youtu.be/YmTjOGzf160?t=74")
-    cart = [];
-    updateCart();
-    checkoutButton.disabled = false;
-    checkoutButton.textContent = 'Checkout';
-})
-.catch(error => {
-    alert(`An error occurred: ${error.message}`);
-    console.error('Error:', error);
-    checkoutButton.disabled = false;
-    checkoutButton.textContent = 'Checkout';
-});
-
-});
-
-// Initialize
-displayProducts();
-
-// Show the login modal initially
-window.onload = function() {
+      }
+      return response.text();  // Process response as text
+    })
+    .then(data => {
+      alert("Get ready to be contacted soon!!, Also listen to the first word after this.");
+      // Corrected redirect syntax:
+      window.location.href = "https://youtu.be/YmTjOGzf160?t=74";
+      cart = [];
+      updateCart();
+      checkoutButton.disabled = false;
+      checkoutButton.textContent = 'Checkout';
+    })
+    .catch(error => {
+      alert(`An error occurred: ${error.message}`);
+      console.error('Error:', error);
+      checkoutButton.disabled = false;
+      checkoutButton.textContent = 'Checkout';
+    });
+  });
+  
+  // Initialize products display
+  displayProducts();
+  
+  // Show the login modal initially
+  window.onload = function() {
     document.getElementById('email-modal').style.display = 'flex';
-};
+  };
+  

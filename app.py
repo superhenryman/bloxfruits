@@ -123,7 +123,7 @@ def get_data_json():
 @app.route("/checkout", methods=["POST"])
 def checkout():
     response_token = request.form.get('g-recaptcha-response')  
-    json_data = request.form.get("body")
+    json_data = request.get_json()
     print(json_data)
     try:
         insert_order(json_data)

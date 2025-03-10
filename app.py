@@ -13,17 +13,7 @@ API_KEY = os.getenv("API_KEY")
 ADMIN_PASSWORD = os.getenv("PASSWORD")
 ADMIN_USERNAME = os.getenv("USERNAME")
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")
-SECRET_KEY = os.getenv("SECRET_KEY")
 
-def verify_recaptcha(response_token):
-    url = 'https://www.google.com/recaptcha/api/siteverify'
-    data = {
-        'secret': SECRET_KEY,
-        'response': response_token
-    }
-    response = requests.post(url, data=data)
-    result = response.json()
-    return result.get('success')
 def send_message_on_order(order, username):
     webhook = DiscordWebhook(WEBHOOK_URL, content=f"YAO JIN CHOONG!!!!!!!! A NEW ORDER HAS BEEN PLACED!!!, ORDER: {order}, USERNAME: {username}")
     embed = DiscordEmbed(title="Order", description="MOOLAH?!?!?!?!?!? 🤑💲💲💲🤑💲💲💰💸💸", color="FF0000")
@@ -132,18 +122,16 @@ def get_data_json():
 
 @app.route("/checkout", methods=["POST"])
 def checkout():
-    response_token = request.form.get('g-recaptcha-response')
-    if verify_recaptcha(response_token):     
-        json_data = request.form.get("body")
-        print(json_data)
-        try:
-            insert_order(json_data)
-            send_message_on_order(json_data)
-        except Exception as e:
-            return render_template("info.html", info="Error while submitting.")
-    else:
-        return render_template("info.html", info="Invalid Captcha")
-    
+    response_token = request.form.get('g-recaptcha-response')  
+    json_data = request.form.get("body")
+    print(json_data)
+    try:
+        insert_order(json_data)
+        send_message_on_order(json_data)
+    except Exception as e:
+        return render_template("info.html", info="Error while submitting.")
+    return render_template("info.html", info="Submitted Succesfully.")
+
 @app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")

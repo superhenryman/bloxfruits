@@ -129,8 +129,9 @@ def get_data_json():
 @app.route("/", methods=["GET", "POST"])
 def checkout():
     response_token = request.form.get('g-recaptcha-response')
-    if verify_recaptcha(response_token):
-        if request.method == "POST":
+    if request.method == "POST":
+        if verify_recaptcha(response_token):
+
             json_data = request.form.get("body")
             try:
                 insert_order(json_data)
@@ -138,8 +139,8 @@ def checkout():
             except Exception as e:
                 print("Error! Cannot do shit." + e)
             return render_template("info.html", info="Submitted!!!")
-    else:
-        return render_template("info.html", info="Invalid Captcha")
+        else:
+            return render_template("info.html", info="Invalid Captcha")
     return render_template("index.html")
 
 

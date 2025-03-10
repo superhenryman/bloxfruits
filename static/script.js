@@ -1,6 +1,6 @@
 const products = [
-    //{ id: 1, name: "Laptop", price: 999, image: "laptop.png" },
-    //{ id: 2, name: "Headphones", price: 199, image: "headphones.png" }, templates
+{ id: 1, name: "Laptop", price: 999, image: "laptop.png" },
+  { id: 2, name: "Headphones", price: 199, image: "headphones.png" }, templates
   ];
   const checkoutButton = document.getElementById('checkout-btn');
   let cart = [];

@@ -2,7 +2,7 @@ const products = [
     { id: 1, name: "Laptop", price: 999, image: "laptop.png" },
     { id: 2, name: "Headphones", price: 199, image: "headphones.png" },
 ];
-
+const checkoutButton = document.getElementById('checkout-btn')
 let cart = [];
 let email = "";
 
@@ -77,7 +77,7 @@ document.getElementById('cart-link').addEventListener('click', () => {
 });
 
 // Handle checkout
-document.getElementById('checkout-btn').addEventListener('click', () => {
+checkoutButton.addEventListener('click', () => {
     if (cart.length === 0) {
         alert("Your cart is empty!");
         return;

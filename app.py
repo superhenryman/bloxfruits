@@ -4,25 +4,32 @@ import pandas as pd
 from io import BytesIO
 import os
 from discord_webhook import DiscordWebhook, DiscordEmbed
+
+# TODO: Add Captcha, fix checkout.
+
 app = Flask(__name__)
 init_db()
 API_KEY = os.getenv("API_KEY")
 ADMIN_PASSWORD = os.getenv("PASSWORD")
 ADMIN_USERNAME = os.getenv("USERNAME")
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")
+
 def send_message_on_order(order, username):
     webhook = DiscordWebhook(WEBHOOK_URL, content=f"YAO JIN CHOONG!!!!!!!! A NEW ORDER HAS BEEN PLACED!!!, ORDER: {order}, USERNAME: {username}")
     embed = DiscordEmbed(title="Order", description="MOOLAH?!?!?!?!?!? 🤑💲💲💲🤑💲💲💰💸💸", color="FF0000")
     webhook.add_embed(embed=embed)
     webhook.execute()
+
 def require_api_key():
     if request.headers.get('X-API-KEY') != API_KEY:
         ip_addr = request.remote_addr
         print(ip_addr)
         return f"This you lil bro? {ip_addr}"
+
 @app.route("/gotologin")
 def redirecttologin():
     return redirect("/login")
+
 def retrieve_data():
     with get_conn() as conn:
        cursor = conn.cursor()
@@ -42,6 +49,7 @@ def checkout():
             print("Error! Cannot do shit." + e)
         return render_template("info.html", info="Submitted!!!")
     return render_template("index.html")
+
 @app.route("/squidward", methods=["GET"])
 def squidward():
     squidward_handsome = r"""
@@ -69,6 +77,7 @@ def squidward():
 
         """
     return f"{squidward_handsome}, Yes, you're on the right page."
+
 # admin stuff
 @app.route("/login", methods=["GET", "POST"])
 def login():

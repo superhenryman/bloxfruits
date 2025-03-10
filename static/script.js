@@ -114,6 +114,10 @@ checkoutButton.addEventListener('click', () => {
 .then(data => {
     alert("Get ready to be contacted soon!!, Also listen to the first word after this.")
     window.location.href("https://youtu.be/YmTjOGzf160?t=74")
+    cart = [];
+    updateCart();
+    checkoutButton.disabled = false;
+    checkoutButton.textContent = 'Checkout';
 })
 .catch(error => {
     alert(`An error occurred: ${error.message}`);

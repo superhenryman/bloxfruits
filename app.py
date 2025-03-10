@@ -32,9 +32,7 @@ def send_message_on_order(order, username):
 
 def require_api_key():
     if request.headers.get('X-API-KEY') != API_KEY:
-        ip_addr = request.remote_addr
-        print(ip_addr)
-        return f"This you lil bro? {ip_addr}"
+        abort(403)
 
 @app.route("/gotologin")
 def redirecttologin():

@@ -117,30 +117,35 @@ def retrieve_and_save_data_as_excel():
         cursor.execute("SELECT * FROM orders")
         rows = cursor.fetchall()
         df = pd.DataFrame(rows, columns=["id", "order"])
-        excelfile = df.to_excel()
-        filestream = BytesIO(excelfile.encode())
-        return send_file(filestream, None, as_attachment=True, download_name="orders.xlsx")
+        excelfile = df.to_excel()  # Ensure you are passing the correct arguments
+    return send_file(
+        excelfile,
+        as_attachment=True,
+        download_name="data.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
 
 @app.route("/json", methods=["GET"])
 def get_data_json():
     require_api_key()
-    return jsonify(retrieve_data())
+    return retrieve_data()
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/checkout", methods=["POST"])
 def checkout():
     response_token = request.form.get('g-recaptcha-response')
-    if request.method == "POST":
-        if verify_recaptcha(response_token):
-
-            json_data = request.form.get("body")
-            try:
-                insert_order(json_data)
-                send_message_on_order(json_data)
-            except Exception as e:
-                print("Error! Cannot do shit." + e)
+    if verify_recaptcha(response_token):     
+        json_data = request.form.get("body")
+        try:
+            insert_order(json_data)
+            send_message_on_order(json_data)
+        except Exception as e:
+            print("Error! Cannot do shit." + e)
             return render_template("info.html", info="Submitted!!!")
-        else:
-            return render_template("info.html", info="Invalid Captcha")
+    else:
+        return render_template("info.html", info="Invalid Captcha")
+    
+@app.route("/", methods=["GET"])
+def index():
     return render_template("index.html")
 
 

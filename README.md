@@ -7,4 +7,4 @@ hosted on https://railway.com (ily so much)
 # codingsbetter(ham12) for giving me the idea
 
 
-# This uses a modified version of the GPLv3, disabling commercial use. Please read carefully!
+# You can also use this app as a template for other shop apps.

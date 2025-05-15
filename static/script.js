@@ -1,6 +1,6 @@
 const products = [
   { id: 0, name: "Laptop", price: 999, image: "laptop.png" },
-  { id: 0, name: "Headphones", price: 199, image: "headphones.png" }
+  { id: 1, name: "Headphones", price: 199, image: "headphones.png" }
   // these are templates, pretty self-explanatory.
 ];
   const checkoutButton = document.getElementById('checkout-btn');

@@ -2,7 +2,7 @@
 
 hosted on https://railway.com (ily so much)
 
-# styled by MAH23Style
+# styled by jerry.
 # backend by me
 # codingsbetter(ham12) for giving me the idea
 
